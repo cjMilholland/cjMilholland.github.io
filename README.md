@@ -2,3 +2,5 @@
  - Exploring Thoughts Questions about AI
  - - [How can we run an LLM locally?](/ai_questions/running_a_local_llm)
  - - [Editors, Terminals, Rice Cookers, oh my...](/ai_questions/editors_terminals_rice_cookers_oh_my)
+ - [Study Notes and Learning Resources](study_notes)
+ - [AI Terminology](/ai_terminology)
