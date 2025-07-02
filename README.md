@@ -4,3 +4,4 @@
  - - [Editors, Terminals, Rice Cookers, oh my...](/ai_questions/editors_terminals_rice_cookers_oh_my)
  - [Study Notes and Learning Resources](study_notes)
  - [AI Terminology](/ai_terminology)
+ - [AI Training Datasets](/ai_datasets)

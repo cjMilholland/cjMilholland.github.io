@@ -4,7 +4,57 @@
 ### Fast AI Practical Deep Learning - [https://course.fast.ai](https://course.fast.ai)
 
 ## Study Notes
+### fastai Tutorials
+#### fastai Tutorial Beginner - Computer Vision Intro
+[https://docs.fast.ai/tutorial.vision.html](https://docs.fast.ai/tutorial.vision.html)
+
 ### Fast AI Practical Deep Learning Course - [https://course.fast.ai](https://course.fast.ai)
+#### Online Course
+- Lesson 1 [Getting started](https://course.fast.ai/Lessons/lesson1.html)
+
+This lesson is partially based on Chapter 1 of the book which I just finished working through, notes can be seen below. 
+
+The lesson starts out with a 90 minute YouTube video.
+
+The start of this video is spent talking about the who of fastai. 
+
+Eventually Jeremy starts to show some examples of what is possible with fastai. 
+
+One of the things that I would like to loop back on is the Pytorch Image Models (timm). 
+This looks to be a large collection of different image based models like ResNet and the sort. I believe most if not all of these have been trained on the ImageNet datasets. 
+
+
+After watching the video I started playing around with building a blank Notebook. 
+On this notebook I copied and pasted the example code to have clean start. 
+In this example I changed it to Dog vs Cat. 
+I did run into a couple of rate limiting challenges on DuckDuckGo. 
+This resulted in 171 Cat Images and 193 Dog Images. 
+Lack of a proper terminal made we decide to just roll with what we have. 
+Looking at the photos returned it does seem like we are not getting a quality set of images returned.
+I am going to move forward with training knowing this dataset is subpar
+
+Running the code I realize I don't fully understand something. 
+My expectation is that I would be able to feed it a Dog Photo and it would say thats a dog.
+Then feed it a Cat photo and it would say that is a Cat. 
+But what I am getting right now seems to be just is it a Cat or not response....
+
+What I am going to do next is look at the fastai tutorial to see if it provides me with a better understanding.
+I will add a section above specific to notes on the [fastai > Tutorial > Beginner > Computer Vision Into](https://docs.fast.ai/tutorial.vision.html)
+
+
+TODO
+[ ] "complete lesson 1"
+[x] Setup Account on Kaggle
+[x] Copy and Paste code to Build a Cat or Dog model on a Kaggle
+[ ] Modify the code to have a Laycie or Colin or Jim Model
+[ ] See about wrapping the model into a webpage were we take a photo on the phone and upload to the website.
+[ ] docs.fastai.com
+[ ] timm.fastai.com
+[ ] Run through the fastai Beginner Tutorial
+[ ] Check out RISE the Notebook extension that creates slides out of your notebook 
+[ ] Build out a couple of models on random data to see how well we can make them work. 
+
+#### BOOK / Google Colab Notebook - Deep Learning for Coders with fastat an PyTorch
 This course is based on a book titled [The fastai book](https://github.com/fastai/fastbook). This book looks to be comprised of multiple Jupyter Notebooks with the expectation of you reading / running the notebooks via [Google Colab](https://colab.research.google.com).
 
 
@@ -67,6 +117,32 @@ Signing off for the night.
 Another use case of Image Recognizers is to take data in one form and convert it to an image and see if it is possible to fine tune a pre trained model with this converted data. They provide a couple of examples one based on created spectrograms from audio clips and another by representing malware in a gray scale image which is a very interesting way to go about things. Link to the Malware paper [Malware Classification with Deep Convolutional Neural Networks](https://ieeexplore.ieee.org/abstract/document/8328749)
 
 I will say that chapter one is proving to be a very useful learning resource so far for me. 
+
+When it comes to identifying the location specific objects and things in images we need to leverage a segmentation model. The example leverages a dataset called 'Camvid' which is discribed in a paper called [Semantic Object Classes in Video: A High-Definition Ground Truth Database](http://www0.cs.ucl.ac.uk/staff/G.Brostow/papers/Brostow_2009-PRL.pdf)
+
+In the code example they are leveraging the pre-trained model ResNet34. It is leveraging a function called *unet_learner(dls, resnet34)*. Looking at the fastai website the unet_learner function ties back to the Vision Learner provided by the fastai library.
+
+Running this round of training against the ResNet34 pre trained with the CAMVID_TINY dataset. The training process ran through 8 Epochs which tool only 20 seconds to run which I found to be pretty impressive. We then are able to run a validation which I don't fully understand but the results do look very promising. 
+
+CamVid stands for Cambridge-driving Labeled Video Database. This is a dataset which consists of 10 minutes of 30 fps HD video which has been labeled on 32 different object classifications. The content was filled from the viewpoint of a car. 
+
+Next we start to play around with Text via Natural Language Processing (NLP)
+
+With this example they leverage the IMDB dataset which is described in a paper called [Learning Word Vectors for Sentiment Analysis](https://ai.stanford.edu/~ang/papers/acl11-WordVectorsSentimentAnalysis.pdf) and pass that through a *text_classifier_learner* which accepts the training dataset and a Architecture which looks to be set to the value of **AWD_LSTM** which is described in a paper [Regularizing and Optimizing LSTM Language Models](https://arxiv.org/abs/1708.02182)
+
+The resulting output from this AI training is a model which attempts to identify if the text is positive or negative. 
+
+When testing this I took a couple different paragraphs from news articles to see what the model responded with. Basically ever paragraph I tried from different news articles resulted in a response of Positive from the trained model. But when grabbing random restaurant reviews we see this works pretty well. I would like to better understand some of the numbers that it returns along with its identification of positive or negative sentiment. I did provide a couple middle of the road reviews which seemed to return numbers around .5, I would like to understand if that means it is like a 50% pos and 50% neg... Actually further reading shows that the two numbers are a representation of percentage positive and percentage negative. 
+
+This is very interesting and would make me wonder how we could use this to identify viewer sentiment during live sporting events. Would we be able to identify comments specific to stream quality vs complaints or praise of the event itself???
+
+We then go on to show an example of using tabular data as a training source. They provide an example of a way to provide movie predictions but no specific tooling to easy logical testing. I didn't run this code. 
+
+We then start to wrap things up with a section on Validation Sets and Test Sets. This section touches specifically on the need for a set of data that the model was not trained on. As testing the model against data it was trained on would result in inaccurate success / failure data.
+
+They offer up a great bit of insight around ensuring that you always have a 'Test Set' of data which is never seen by anyone and remains totally hidden. This is useful in multiple instances but the most powerful example is needing this to test a model which is returned by a third party. The goal being that the third party never sees this data so they are not able to fit the model for this specific dataset. 
+
+They also recommend if you are planning on leveraging a third party to develop your model you should first attempt to build a simple model of your own to better understand what baseline performance looks like. 
 
 
 
