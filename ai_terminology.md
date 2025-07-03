@@ -79,3 +79,5 @@ Convolutional neural network; a type of neural network that works particularly w
 
 - Tabular 
 Data that is in the form of a table, such as from a spreadsheet, database, or CSV file. A tabular model is a model that tries to predict one column of a table based on information in other columns of the table.
+
+- Learning Rate

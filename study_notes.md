@@ -8,6 +8,171 @@
 #### fastai Tutorial Beginner - Computer Vision Intro
 [https://docs.fast.ai/tutorial.vision.html](https://docs.fast.ai/tutorial.vision.html)
 
+I will be following along with this tutorial on a dedicated Kaggle Notebook
+[Link to my Kaggle Notebook](https://www.kaggle.com/code/cjmilholland/fastai-tutorial-beginner-computer-vision-intro)
+
+To start the tutorial runs us through another Cat vs Dog Image classifier. 
+I will following along with this although we have done it a couple of times already.
+
+In this process we are using the Oxford Pet Dataset which is included in the fastai library via the URLs.PETS dataset.
+
+After we untar this dataset we are left with two folders. /images and /annotations
+
+In the /images directory we see 7390 files
+
+In this dataset the way we identify a Cat photo vs a Dog photo is that the Cat photos start with an uppercase letter.
+While the Dog photos start with a lowercase letter.
+
+Now that we have these images we need to load this data into a dataloader objects. 
+One of the needed parts of this is to label the images. 
+For this we create a simple function which returns true or false based on the case of the first letter of the filename.
+
+At the end of the Simple Cat identifier we have a model that seems to do a pretty good job of saying if the picture is that of a cat. 
+
+Next we start working on a breed identifier. In the Oxford Pet Dataset each filename contains the breed of the Dog or Cat that is in the dataset. 
+
+We are able to create a new DataLoader which labels each item based off of the breed that was extracted from the filename. 
+
+This works as expected and is verified using dls.show_batch(). 
+
+After this we modify the DataLoader to leverage data augmentation. 
+
+> dls = ImageDataLoaders.from_name_re(path, files, pat, item_tfms=Resize(224))
+
+to 
+
+> dls = ImageDataLoaders.from_name_re(path, files, pat, item_tfms=Resize(460), batch_tfms=aug_transforms(size=224))
+
+I don't understand what the value of this change is as the text just says it works better... 
+it didn't see any faster to run the command. Maybe it impacts the training phase? Not sure.
+
+In this situation when running the learning step on both versions of the Data Loaders I can't tell any difference in speed of processing. 
+
+Next the tutorial comments on learning rate which can be checked by running 
+
+learn.lr_find()
+
+This returns a graph which shows Loss on the X axis and Learning Rate on the Y axis.
+Using this the author selects a number to add to the fine_tune function. 
+He selects 3e-3 which I don't understand because the base of the graph is like 10e-1 or 10e-3. 
+At 10e-3 the graph starts to show a steep drop in Loss.
+Unsure if these correlate.
+
+Searching around I was able to find a forum post which linked to chapter 5 of the fastbook. 
+In this chapter they have a section on learning rate which has slightly different code than what is in the beginner tutorial.
+
+~
+learn = vision_learner(dls, resnet34, metrics=error_rate)
+lr_min,lr_steep = learn.lr_find(suggest_funcs=(minimum, steep))
+print(f"Minimum/10: {lr_min:.2e}, steepest point: {lr_steep:.2e}")
+~
+
+When we run this a couple of times we get values ranging from 6e-3 to 3e-3. 
+A comment on that forum thead suggested that fastai has noted that 3e-3 is a good starting point for the Learning Rate
+I am running an experiment using two very different Learning Rate values
+
+3e-7, 3e-3, 3e-1
+
+> learn.fine_tune(2, 3e-7)
+
+epoch	train_loss	valid_loss	error_rate	time
+0	    5.277457	4.221473	0.967524	00:34
+epoch	train_loss	valid_loss	error_rate	time
+0	    5.268894	4.205616	0.971583	00:42
+1	    5.253009	4.197446	0.970230	00:42
+
+> learn.fine_tune(2, 3e-1)
+
+epoch	train_loss	valid_loss	error_rate	time
+0	    25.548103	122.896309	0.967524	00:35
+epoch	train_loss	valid_loss	error_rate	time
+0	    14.393309	5.444802	0.972260	00:41
+1	    6.510090	112.211945	0.964817	00:41
+
+> learn.fine_tune(2, 3e-3)
+
+epoch	train_loss	valid_loss	error_rate	time
+0	    4.448089	9.738280	0.954668	00:35
+epoch	train_loss	valid_loss	error_rate	time
+0	    4.234919	289.615112	0.944520	00:41
+1	    4.103619	901.831726	0.937077	00:40
+
+I don't think these rates look correct. 
+I think I might need to create a new learn object for each pass of fine_tune.
+Attempting again after creating a new learn model on each one. 
+
+This time I will set the Learn Rate to the Steepest Point as returned by the lr_find function
+In this case it lands right on 3.02e-03
+
+> learn.fine_tune(2, 3.02e-03)
+
+epoch	train_loss	valid_loss	error_rate	time
+0	    1.306298	0.334893	0.107578	00:34
+epoch	train_loss	valid_loss	error_rate	time
+0	    0.539038	0.408261	0.117727	00:42
+1	    0.330541	0.238117	0.073748	00:41
+
+Next I will run one with the Learn Rate set to the Min value as found after rebuilding the learn object.
+
+> learn.fine_tune(2, 1.00e-02) # Min Value
+
+epoch	train_loss	valid_loss	error_rate	time
+0	    0.943575	0.442757	0.117727	00:34
+epoch	train_loss	valid_loss	error_rate	time
+0	    1.050058	0.809551	0.221922	00:41
+1	    0.581330	0.327122	0.086604	00:42
+
+Next I will use 10e-6 as it is deep into the high flat part of the curve.
+
+> learn.fine_tune(2, 10e-6)
+
+epoch	train_loss	valid_loss	error_rate	time
+0	    5.264610	4.111388	0.960758	00:34
+epoch	train_loss	valid_loss	error_rate	time
+0	    5.050147	3.906752	0.940460	00:41
+1	    4.882547	3.808164	0.933694	00:42
+
+Looking a the error rate we see the best results with the Learning Rate set to the steepest value.
+Close but worse error rate when set to the Min value
+A very high error rate when set to a value with a high Loss Rate and no real change in slope. 
+
+I am going to run one more time against the Steepest point so that we have a clean model to proceed with. 
+On this run we happened to end up with the same steepest point value. 
+In the other runs the steepest point value did change but stayed near 3e-3
+
+> learn.fine_tune(2, 3.02e-03)
+
+epoch	train_loss	valid_loss	error_rate	time
+0	    1.310646	0.350815	0.100135	00:34
+epoch	train_loss	valid_loss	error_rate	time
+0	    0.523176	0.374788	0.110284	00:42
+1	    0.308650	0.239559	0.071042	00:42
+
+With this last run using the steepest slope value we end up with basically the same Error Rate
+
+I am going to increase the number of epochs to 5 and see what happens to the error rate.
+
+> learn.fine_tune(5, 4.37e-03)
+
+epoch	train_loss	valid_loss	error_rate	time
+0	    1.129449	0.360709	0.111637	00:35
+epoch	train_loss	valid_loss	error_rate	time
+0	    0.486296	0.477927	0.132612	00:43
+1	    0.520402	0.503782	0.133288	00:42
+2	    0.351521	0.342123	0.095399	00:42
+3	    0.196136	0.256487	0.071042	00:42
+4	    0.106872	0.230444	0.066982	00:44
+
+Using learn.show_results(max_n=20) I feel like the results are better.
+But it is still pretty close to when we ran with 2 epochs. 
+Not sure how much it improved. Error Rate is down about 0.004
+Maybe that is great for just a few more minutes of training. 
+
+Next the tutorial goes into a tool inside of the fastai library called 'Interpretation' 
+One of the possible use case of this tool is to print out the top losses. Showing the image, the prediction and the actual.
+
+
+
 ### Fast AI Practical Deep Learning Course - [https://course.fast.ai](https://course.fast.ai)
 #### Online Course
 - Lesson 1 [Getting started](https://course.fast.ai/Lessons/lesson1.html)
