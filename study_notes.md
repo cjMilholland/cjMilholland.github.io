@@ -170,8 +170,23 @@ Maybe that is great for just a few more minutes of training.
 
 Next the tutorial goes into a tool inside of the fastai library called 'Interpretation' 
 One of the possible use case of this tool is to print out the top losses. Showing the image, the prediction and the actual.
+I believe this could be used to help identify possible problems with the dataset used in training or Validation.
 
+The next section in the Computer Vision Into tutorial is __Single-label classification with the data block api__.
+This section just talks about how to leverage the DataBlock() module.
 
+__Model-label classification__
+This section leverages the [Pascal Dataset](http://host.robots.ox.ac.uk/pascal/VOC/) this dataset is a collection of different objects persons which appropriate labels. The goal of this section is to show you how to setup a model which detects an object and also draws a box around the object.
+
+The dataset has been built and tested against for many years. A by product of this is that a retrospective document was written that does a great job of showing the performance of different object classifiers which were trained and tested using the Pascal dataset. [The PASCAL Visual Object Classes Challenge: A Retrospective](http://host.robots.ox.ac.uk/pascal/VOC/pubs/everingham15.pdf). I just skimmed over this document but my main two take away are that there is one method which is measured to be the best *NUS_SCM*. This method tests so much better than all other types of methods used in the competition in a broad since. The also find that combining multiple methods results in better performance in most all categories. What I didn't find but also didn't look hard for was anything discussing the changes in efficiency between using just the best method vs super methods. 
+
+__Multi-Label Classification Section.__
+In this section we ran through implementing a simple Multi Label model. 
+It was trained on the Pascal dataset and returns a list of objects it thinks are in the image.
+The success rate of this model isn't great but I think it might get better with something like moving video where it has multiple attempts at guessing. We could figure out average list and I would assume that would increase the likely hood of proper success.
+
+__Segmentation__
+Segmentation is much like Multi-Label Classification but we are attempting to figure out the labels for each pixel in the  
 
 ### Fast AI Practical Deep Learning Course - [https://course.fast.ai](https://course.fast.ai)
 #### Online Course
