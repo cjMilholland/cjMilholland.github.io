@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Test - Lesson 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <h1 class="text-2xl font-bold mb-4">Quiz Test - Lesson 1</h1>
+
+    <div id="test-results" class="mb-4"></div>
+
+    <button onclick="testQuizInitialization()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mr-2">
+        Test Quiz Initialization
+    </button>
+
+    <button onclick="testQuizDisplay()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded mr-2">
+        Test Quiz Display
+    </button>
+
+    <button onclick="clearLocalStorage()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+        Clear Local Storage
+    </button>
+
+    <script src="lesson1.js"></script>
+
+    <script>
+        function testQuizInitialization() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '<p class="text-blue-400">Testing quiz initialization...</p>';
+
+            try {
+                if (window.lesson1Instance) {
+                    results.innerHTML = '<p class="text-green-400">✓ Quiz instance already exists</p>';
+                } else {
+                    window.lesson1Instance = new Lesson1WhatAreOptions();
+                    results.innerHTML = '<p class="text-green-400">✓ Quiz initialized successfully</p>';
+                }
+            } catch (error) {
+                results.innerHTML = `<p class="text-red-400">✗ Quiz initialization failed: ${error.message}</p>`;
+            }
+        }
+
+        function testQuizDisplay() {
+            const results = document.getElementById('test-results');
+
+            if (!window.lesson1Instance) {
+                results.innerHTML = '<p class="text-red-400">✗ No quiz instance found. Initialize first.</p>';
+                return;
+            }
+
+            results.innerHTML = '<p class="text-blue-400">Testing quiz display...</p>';
+
+            try {
+                // Create a mock quiz content div
+                if (!document.getElementById('quiz-content')) {
+                    const quizDiv = document.createElement('div');
+                    quizDiv.id = 'quiz-content';
+                    quizDiv.className = 'mt-4 p-4 bg-gray-800 rounded';
+                    document.body.appendChild(quizDiv);
+                }
+
+                // Mock other required elements
+                ['current-question', 'total-questions', 'quiz-progress', 'next-question', 'prev-question', 'finish-quiz'].forEach(id => {
+                    if (!document.getElementById(id)) {
+                        const el = document.createElement('div');
+                        el.id = id;
+                        el.style.display = 'none';
+                        document.body.appendChild(el);
+                    }
+                });
+
+                window.lesson1Instance.displayCurrentQuestion();
+                results.innerHTML = '<p class="text-green-400">✓ Quiz display test completed</p>';
+            } catch (error) {
+                results.innerHTML = `<p class="text-red-400">✗ Quiz display failed: ${error.message}</p>`;
+            }
+        }
+
+        function clearLocalStorage() {
+            localStorage.removeItem('lesson1_quiz_results');
+            localStorage.removeItem('lesson1_progress');
+            localStorage.removeItem('lesson1_exercises');
+            localStorage.removeItem('module1_progress');
+            document.getElementById('test-results').innerHTML = '<p class="text-green-400">✓ Local storage cleared</p>';
+        }
+
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                testQuizInitialization();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: What Are Options? - Options Trading Trainer</title>
+    <meta name="description" content="Learn the fundamental concept of options contracts and how they differ from stocks.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' },
+                        secondary: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a' }
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    animation: { 'fade-in-up': 'fadeInUp 0.6s ease-out', 'slide-in-right': 'slideInRight 0.3s ease-out' },
+                    keyframes: {
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        slideInRight: { '0%': { transform: 'translateX(100%)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-secondary-900 shadow-lg border-b border-secondary-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex flex-col">
+                    <a href="../../index.html" class="text-2xl font-bold text-white hover:text-primary-400 transition-colors duration-200">
+                        📈 Options Trading Trainer
+                    </a>
+                    <p class="text-secondary-400 text-sm">Module 1 • Lesson 1</p>
+                </div>
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-8">
+                        <li><a href="index.html" class="text-secondary-300 hover:text-primary-400 transition-colors duration-200">← Module 1</a></li>
+                        <li><a href="#content" class="text-secondary-300 hover:text-primary-400 transition-colors duration-200">Content</a></li>
+                        <li><a href="#interactive" class="text-secondary-300 hover:text-primary-400 transition-colors duration-200">Interactive</a></li>
+                        <li><a href="#quiz" class="text-secondary-300 hover:text-primary-400 transition-colors duration-200">Quiz</a></li>
+                    </ul>
+                </nav>
+                <div class="md:hidden mobile-menu-toggle flex flex-col cursor-pointer">
+                    <span class="w-6 h-0.5 bg-white mb-1 transition-all duration-300"></span>
+                    <span class="w-6 h-0.5 bg-white mb-1 transition-all duration-300"></span>
+                    <span class="w-6 h-0.5 bg-white transition-all duration-300"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Lesson Header -->
+    <section class="pt-32 pb-16 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center gap-2 text-primary-100 text-sm mb-6">
+                    <a href="../../index.html" class="hover:text-primary-300 transition-colors duration-200">Home</a>
+                    <span class="text-primary-400">→</span>
+                    <a href="index.html" class="hover:text-primary-300 transition-colors duration-200">Module 1: Fundamentals</a>
+                    <span class="text-primary-400">→</span>
+                    <span class="text-white">Lesson 1: What Are Options?</span>
+                </div>
+
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30">
+                        <span class="text-yellow-400">⏱️</span>
+                        <span class="ml-2 text-white text-sm">3-4 hours</span>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30">
+                        <span class="text-blue-400">📚</span>
+                        <span class="ml-2 text-white text-sm">Foundational</span>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30">
+                        <span class="text-green-400">📖</span>
+                        <span class="ml-2 text-white text-sm">Reading Lesson</span>
+                    </div>
+                </div>
+
+                <h1 class="text-4xl lg:text-5xl font-bold mb-6">What Are Options?</h1>
+                <p class="text-lg text-primary-100 mb-8 leading-relaxed">
+                    Learn the fundamental concept of options contracts and understand how they differ from traditional stock ownership.
+                </p>
+
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                    <h3 class="text-xl font-bold text-white mb-4">By the end of this lesson, you will:</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 text-lg">✅</span>
+                            <span class="text-primary-100">Understand what an options contract is</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 text-lg">✅</span>
+                            <span class="text-primary-100">Know the difference between rights and obligations</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 text-lg">✅</span>
+                            <span class="text-primary-100">Identify underlying assets and contract specifications</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 text-lg">✅</span>
+                            <span class="text-primary-100">Recognize how options differ from stocks</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="content" class="py-16 bg-secondary-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Main Content Column -->
+                <div class="lg:col-span-3 space-y-12">
+
+                    <!-- Section 1: Introduction -->
+                    <section class="bg-secondary-800 rounded-xl p-8 border border-secondary-700">
+                        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                            Introduction to Options
+                        </h2>
+                        <div class="prose prose-lg max-w-none text-secondary-300 mb-8">
+                            <p>
+                                Options are financial derivatives that give the buyer the <strong class="text-white">right</strong>, but not the <strong class="text-white">obligation</strong>,
+                                to buy or sell an underlying asset at a predetermined price within a specific time period.
+                            </p>
+                        </div>
+
+                        <div class="bg-primary-900/50 border border-primary-500/30 rounded-lg p-6 mb-8">
+                            <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                <span class="text-2xl">🔑</span>
+                                Key Concept
+                            </h4>
+                            <p class="text-primary-100">
+                                Think of options like a "reservation" at a restaurant. You pay a small fee (premium) to reserve the right
+                                to buy a meal (underlying asset) at a fixed price (strike price) within a certain time (expiration).
+                                You can choose to exercise your reservation or let it expire.
+                            </p>
+                        </div>
+
+                        <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                            <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                                <span class="text-2xl">⚡</span>
+                                Quick Check: Options vs. Stocks
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                                    <h4 class="text-lg font-bold text-green-300 mb-3 flex items-center gap-2">
+                                        <span class="text-2xl">📈</span>
+                                        Stock Ownership
+                                    </h4>
+                                    <ul class="space-y-2 text-green-100">
+                                        <li><strong class="text-white">Ownership:</strong> You own the actual stock</li>
+                                        <li><strong class="text-white">Risk:</strong> Unlimited (stock can go to $0)</li>
+                                        <li><strong class="text-white">Cost:</strong> Full price of shares</li>
+                                        <li><strong class="text-white">Time:</strong> No expiration</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
+                                    <h4 class="text-lg font-bold text-blue-300 mb-3 flex items-center gap-2">
+                                        <span class="text-2xl">🎫</span>
+                                        Options Contract
+                                    </h4>
+                                    <ul class="space-y-2 text-blue-100">
+                                        <li><strong class="text-white">Ownership:</strong> Right to buy/sell, not ownership</li>
+                                        <li><strong class="text-white">Risk:</strong> Limited to premium paid</li>
+                                        <li><strong class="text-white">Cost:</strong> Small premium (vs. full stock price)</li>
+                                        <li><strong class="text-white">Time:</strong> Expires on specific date</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 2: Contract Specifications -->
+                    <section class="bg-secondary-800 rounded-xl p-8 border border-secondary-700 mb-8">
+                        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                            Options Contract Specifications
+                        </h2>
+                        <div class="prose prose-lg max-w-none text-secondary-300 mb-8">
+                            <p>Every options contract has specific characteristics that define its terms and conditions:</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">🎯</span>
+                                    Underlying Asset
+                                </h4>
+                                <p class="text-secondary-300 mb-3">The security that the option is based on (stock, ETF, index, etc.)</p>
+                                <div class="bg-primary-900/30 rounded-lg p-3 border border-primary-500/30">
+                                    <strong class="text-primary-200">Example:</strong>
+                                    <span class="text-white">Apple Inc. (AAPL) stock</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">💰</span>
+                                    Strike Price
+                                </h4>
+                                <p class="text-secondary-300 mb-3">The price at which you can buy or sell the underlying asset</p>
+                                <div class="bg-primary-900/30 rounded-lg p-3 border border-primary-500/30">
+                                    <strong class="text-primary-200">Example:</strong>
+                                    <span class="text-white">$150 strike price on AAPL</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">📅</span>
+                                    Expiration Date
+                                </h4>
+                                <p class="text-secondary-300 mb-3">The date when the option contract expires</p>
+                                <div class="bg-primary-900/30 rounded-lg p-3 border border-primary-500/30">
+                                    <strong class="text-primary-200">Example:</strong>
+                                    <span class="text-white">March 15, 2025</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">💵</span>
+                                    Premium
+                                </h4>
+                                <p class="text-secondary-300 mb-3">The price you pay to purchase the options contract</p>
+                                <div class="bg-primary-900/30 rounded-lg p-3 border border-primary-500/30">
+                                    <strong class="text-primary-200">Example:</strong>
+                                    <span class="text-white">$2.50 per share</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-primary-900/20 rounded-xl p-6 border border-primary-500/30">
+                            <h3 class="text-xl font-bold text-primary-300 mb-4 flex items-center gap-2">
+                                <span class="text-2xl">🎮</span>
+                                Contract Specification Exercise
+                            </h3>
+                            <p class="text-primary-100 mb-6">Look at this sample options contract and identify its components:</p>
+
+                            <div class="bg-secondary-800 rounded-lg p-6 border border-secondary-600 mb-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="text-lg font-bold text-white">AAPL 150C 2025-03-15</h4>
+                                    <span class="bg-primary-600 text-white px-3 py-1 rounded-full text-sm">Sample Contract</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                    <div class="bg-secondary-700 rounded-lg p-3">
+                                        <span class="text-secondary-400">Premium:</span>
+                                        <span class="text-white font-bold ml-2">$2.50</span>
+                                    </div>
+                                    <div class="bg-secondary-700 rounded-lg p-3">
+                                        <span class="text-secondary-400">Contract Size:</span>
+                                        <span class="text-white font-bold ml-2">100 shares</span>
+                                    </div>
+                                    <div class="bg-secondary-700 rounded-lg p-3">
+                                        <span class="text-secondary-400">Total Cost:</span>
+                                        <span class="text-white font-bold ml-2">$250</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-white mb-3">Question:</h4>
+                                <p class="text-secondary-300 mb-4">What does "AAPL 150C 2025-03-15" mean?</p>
+
+                                <div class="space-y-3">
+                                    <label class="flex items-center gap-3 p-3 bg-secondary-600 rounded-lg cursor-pointer hover:bg-secondary-500 transition-colors duration-200">
+                                        <input type="radio" name="contract-exercise" value="a" class="text-primary-600">
+                                        <span class="text-secondary-200">A) Apple stock, $150 strike, Call option, expires March 15, 2025</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 bg-secondary-600 rounded-lg cursor-pointer hover:bg-secondary-500 transition-colors duration-200">
+                                        <input type="radio" name="contract-exercise" value="b" class="text-primary-600">
+                                        <span class="text-secondary-200">B) Apple stock, $150 strike, Put option, expires March 15, 2025</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 bg-secondary-600 rounded-lg cursor-pointer hover:bg-secondary-500 transition-colors duration-200">
+                                        <input type="radio" name="contract-exercise" value="c" class="text-primary-600">
+                                        <span class="text-secondary-200">C) Apple stock, $150 strike, Call option, expires March 15, 2024</span>
+                                    </label>
+                                </div>
+
+                                <button class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors duration-200 mt-4" onclick="checkContractAnswer()">
+                                    Check Answer
+                                </button>
+                                <div id="contract-feedback" class="mt-4"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 3: Rights vs. Obligations -->
+                    <section class="bg-secondary-800 rounded-xl p-8 border border-secondary-700 mb-8">
+                        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                            Rights vs. Obligations
+                        </h2>
+                        <div class="prose prose-lg max-w-none text-secondary-300 mb-8">
+                            <p>
+                                Understanding the difference between rights and obligations is crucial to grasping how options work.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-6">
+                                <h4 class="text-lg font-bold text-green-300 mb-4 flex items-center gap-2">
+                                    <span class="text-2xl">✅</span>
+                                    Rights (What You Can Do)
+                                </h4>
+                                <ul class="space-y-3 text-green-100">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">•</span>
+                                        <div>
+                                            <strong class="text-white">Choose to exercise:</strong>
+                                            <span class="text-green-200"> Buy or sell at strike price</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">•</span>
+                                        <div>
+                                            <strong class="text-white">Let it expire:</strong>
+                                            <span class="text-green-200"> Walk away, losing only the premium</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">•</span>
+                                        <div>
+                                            <strong class="text-white">Sell the option:</strong>
+                                            <span class="text-green-200"> Before expiration to capture remaining value</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-6">
+                                <h4 class="text-lg font-bold text-red-300 mb-4 flex items-center gap-2">
+                                    <span class="text-2xl">❌</span>
+                                    Obligations (What You Must Do)
+                                </h4>
+                                <ul class="space-y-3 text-red-100">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-red-400 mt-1">•</span>
+                                        <div>
+                                            <strong class="text-white">Pay the premium:</strong>
+                                            <span class="text-red-200"> Upfront cost when buying</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-red-400 mt-1">•</span>
+                                        <div>
+                                            <strong class="text-white">Nothing else:</strong>
+                                            <span class="text-red-200"> No further financial obligation</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-red-400 mt-1">•</span>
+                                        <div>
+                                            <strong class="text-white">Market timing:</strong>
+                                            <span class="text-red-200"> Must exercise by expiration</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-primary-900/50 border border-primary-500/30 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                <span class="text-2xl">💡</span>
+                                Important Distinction
+                            </h4>
+                            <p class="text-primary-100">
+                                With options, you have <strong class="text-white">maximum flexibility</strong> but <strong class="text-white">limited risk</strong>.
+                                This asymmetry is what makes options so powerful for traders.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Section 4: Understanding Option Symbols -->
+                    <section class="bg-secondary-800 rounded-xl p-8 border border-secondary-700 mb-8">
+                        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                            Understanding Option Symbols
+                        </h2>
+                        <div class="prose prose-lg max-w-none text-secondary-300 mb-8">
+                            <p>Options have a specific naming convention that tells you everything about the contract at a glance.</p>
+                        </div>
+
+                        <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600 mb-8">
+                            <h3 class="text-xl font-bold text-primary-300 mb-6 flex items-center gap-2">
+                                <span class="text-2xl">📊</span>
+                                Option Symbol Breakdown
+                            </h3>
+                            <div class="bg-secondary-800 rounded-lg p-6 border border-secondary-600 mb-6">
+                                <div class="text-center mb-6">
+                                    <code class="text-3xl font-bold text-primary-300 bg-secondary-700 px-4 py-2 rounded-lg">AAPL 150C 2025-03-15</code>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-secondary-600 rounded-lg p-4 border border-secondary-500">
+                                        <div class="text-primary-300 font-semibold mb-2">Underlying Asset:</div>
+                                        <div class="text-white text-lg font-bold">AAPL</div>
+                                        <div class="text-secondary-400 text-sm">Apple Inc. stock</div>
+                                    </div>
+                                    <div class="bg-secondary-600 rounded-lg p-4 border border-secondary-500">
+                                        <div class="text-primary-300 font-semibold mb-2">Strike Price:</div>
+                                        <div class="text-white text-lg font-bold">150</div>
+                                        <div class="text-secondary-400 text-sm">$150 per share</div>
+                                    </div>
+                                    <div class="bg-secondary-600 rounded-lg p-4 border border-secondary-500">
+                                        <div class="text-primary-300 font-semibold mb-2">Option Type:</div>
+                                        <div class="text-white text-lg font-bold">C</div>
+                                        <div class="text-secondary-400 text-sm">Call option</div>
+                                    </div>
+                                    <div class="bg-secondary-600 rounded-lg p-4 border border-secondary-500">
+                                        <div class="text-primary-300 font-semibold mb-2">Expiration:</div>
+                                        <div class="text-white text-lg font-bold">2025-03-15</div>
+                                        <div class="text-secondary-400 text-sm">March 15, 2025</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-primary-900/20 rounded-lg p-6 border border-primary-500/30">
+                                <h4 class="text-lg font-bold text-primary-300 mb-4 flex items-center gap-2">
+                                    <span class="text-2xl">🔍</span>
+                                    Symbol Rules
+                                </h4>
+                                <ul class="space-y-2 text-primary-100">
+                                    <li><strong class="text-white">Format:</strong> [TICKER] [STRIKE] [TYPE] [EXPIRATION]</li>
+                                    <li><strong class="text-white">Strike:</strong> No decimals (150 = $150, 0025 = $2.50)</li>
+                                    <li><strong class="text-white">Type:</strong> C = Call, P = Put</li>
+                                    <li><strong class="text-white">Expiration:</strong> YYMMDD format</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-primary-900/20 rounded-xl p-6 border border-primary-500/30">
+                            <h3 class="text-xl font-bold text-primary-300 mb-4 flex items-center gap-2">
+                                <span class="text-2xl">🎮</span>
+                                Symbol Decoder Exercise
+                            </h3>
+                            <p class="text-primary-100 mb-6">Practice decoding these option symbols:</p>
+
+                            <div class="space-y-4">
+                                <div class="bg-secondary-800 rounded-lg p-4 border border-secondary-600">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <code class="text-lg font-bold text-primary-300">TSLA 250P 2025-06-20</code>
+                                        <span class="bg-green-600 text-white px-2 py-1 rounded text-xs">Example</span>
+                                    </div>
+                                    <div class="text-green-200 font-medium">
+                                        Tesla put option with $250 strike expiring June 20, 2025
+                                    </div>
+                                </div>
+
+                                <div class="bg-secondary-800 rounded-lg p-4 border border-secondary-600">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <code class="text-lg font-bold text-primary-300">NVDA 0080C 2025-01-17</code>
+                                        <span class="bg-green-600 text-white px-2 py-1 rounded text-xs">Example</span>
+                                    </div>
+                                    <div class="text-green-200 font-medium">
+                                        NVIDIA call option with $80 strike expiring January 17, 2025
+                                    </div>
+                                </div>
+
+                                <div class="bg-secondary-800 rounded-lg p-4 border border-secondary-600">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <code class="text-lg font-bold text-primary-300">SPY 0045P 2025-12-31</code>
+                                        <span class="bg-green-600 text-white px-2 py-1 rounded text-xs">Example</span>
+                                    </div>
+                                    <div class="text-green-200 font-medium">
+                                        SPY ETF put option with $45 strike expiring December 31, 2025
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 5: What Happens When Options Expire? -->
+                    <section class="bg-secondary-800 rounded-xl p-8 border border-secondary-700 mb-8">
+                        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">5</span>
+                            What Happens When Options Expire?
+                        </h2>
+                        <div class="prose prose-lg max-w-none text-secondary-300 mb-8">
+                            <p>Understanding expiration is crucial because it affects how you manage your options positions.</p>
+                        </div>
+
+                        <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600 mb-8">
+                            <h3 class="text-xl font-bold text-primary-300 mb-6 flex items-center gap-2">
+                                <span class="text-2xl">⏰</span>
+                                Expiration Scenarios
+                            </h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-6">
+                                    <h4 class="text-lg font-bold text-green-300 mb-3 flex items-center gap-2">
+                                        <span class="text-2xl">📈</span>
+                                        In-The-Money (ITM)
+                                    </h4>
+                                    <p class="text-green-200 mb-4">When the option has intrinsic value</p>
+
+                                    <div class="space-y-2 text-green-100 text-sm">
+                                        <div class="bg-green-800/30 rounded-lg p-2">
+                                            <strong class="text-white">Call ITM:</strong> Stock price > Strike price
+                                        </div>
+                                        <div class="bg-green-800/30 rounded-lg p-2">
+                                            <strong class="text-white">Put ITM:</strong> Stock price < Strike price
+                                        </div>
+                                        <div class="bg-green-700/50 rounded-lg p-2 border border-green-500/30">
+                                            <span class="text-green-300 font-semibold">Result:</span>
+                                            <span class="text-white">May be automatically exercised</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-6">
+                                    <h4 class="text-lg font-bold text-red-300 mb-3 flex items-center gap-2">
+                                        <span class="text-2xl">📉</span>
+                                        Out-of-The-Money (OTM)
+                                    </h4>
+                                    <p class="text-red-200 mb-4">When the option has no intrinsic value</p>
+
+                                    <div class="space-y-2 text-red-100 text-sm">
+                                        <div class="bg-red-800/30 rounded-lg p-2">
+                                            <strong class="text-white">Call OTM:</strong> Stock price < Strike price
+                                        </div>
+                                        <div class="bg-red-800/30 rounded-lg p-2">
+                                            <strong class="text-white">Put OTM:</strong> Stock price > Strike price
+                                        </div>
+                                        <div class="bg-red-700/50 rounded-lg p-2 border border-red-500/30">
+                                            <span class="text-red-300 font-semibold">Result:</span>
+                                            <span class="text-white">Expires worthless</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-6">
+                                    <h4 class="text-lg font-bold text-yellow-300 mb-3 flex items-center gap-2">
+                                        <span class="text-2xl">🎯</span>
+                                        At-The-Money (ATM)
+                                    </h4>
+                                    <p class="text-yellow-200 mb-4">When stock price equals strike price</p>
+
+                                    <div class="space-y-2 text-yellow-100 text-sm">
+                                        <div class="bg-yellow-800/30 rounded-lg p-2">
+                                            <strong class="text-white">Call ATM:</strong> Stock price = Strike price
+                                        </div>
+                                        <div class="bg-yellow-800/30 rounded-lg p-2">
+                                            <strong class="text-white">Put ATM:</strong> Stock price = Strike price
+                                        </div>
+                                        <div class="bg-yellow-700/50 rounded-lg p-2 border border-yellow-500/30">
+                                            <span class="text-yellow-300 font-semibold">Result:</span>
+                                            <span class="text-white">Expires worthless (no intrinsic value)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-primary-900/50 border border-primary-500/30 rounded-lg p-6 mb-8">
+                            <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                <span class="text-2xl">💡</span>
+                                Important: Automatic Exercise
+                            </h4>
+                            <p class="text-primary-100">
+                                Most brokers automatically exercise ITM options at expiration. However, it's generally better
+                                to close positions before expiration to avoid unexpected outcomes and commissions.
+                            </p>
+                        </div>
+
+                        <div class="bg-primary-900/20 rounded-xl p-6 border border-primary-500/30">
+                            <h3 class="text-xl font-bold text-primary-300 mb-4 flex items-center gap-2">
+                                <span class="text-2xl">🎮</span>
+                                Expiration Date Exercise
+                            </h3>
+                            <p class="text-primary-100 mb-6">Understanding expiration dates is crucial for options trading. Here are key points:</p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-secondary-800 rounded-lg p-4 border border-secondary-600 flex items-center gap-3">
+                                    <span class="text-3xl">📅</span>
+                                    <div>
+                                        <div class="text-white font-semibold">Standard Expiration</div>
+                                        <div class="text-secondary-400 text-sm">Third Friday of each month</div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-secondary-800 rounded-lg p-4 border border-secondary-600 flex items-center gap-3">
+                                    <span class="text-3xl">⏰</span>
+                                    <div>
+                                        <div class="text-white font-semibold">Expiration Time</div>
+                                        <div class="text-secondary-400 text-sm">4:00 PM ET on expiration Friday</div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-secondary-800 rounded-lg p-4 border border-secondary-600 flex items-center gap-3">
+                                    <span class="text-3xl">🏃</span>
+                                    <div>
+                                        <div class="text-white font-semibold">Exercise Period</div>
+                                        <div class="text-secondary-400 text-sm">Can exercise any time before expiration</div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-secondary-800 rounded-lg p-4 border border-secondary-600 flex items-center gap-3">
+                                    <span class="text-3xl">💰</span>
+                                    <div>
+                                        <div class="text-white font-semibold">Premium Decay</div>
+                                        <div class="text-secondary-400 text-sm">Options lose value as expiration approaches</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 6: Options in Practice -->
+                    <section class="bg-secondary-800 rounded-xl p-8 border border-secondary-700 mb-8">
+                        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">6</span>
+                            Options in the Real World
+                        </h2>
+                        <div class="prose prose-lg max-w-none text-secondary-300 mb-8">
+                            <p>Options are traded on regulated exchanges and are used by various market participants:</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">🏢</span>
+                                    Institutional Investors
+                                </h4>
+                                <p class="text-secondary-300 mb-4">Large investment firms and hedge funds</p>
+                                <ul class="space-y-2 text-secondary-200 text-sm">
+                                    <li>• Portfolio hedging strategies</li>
+                                    <li>• Risk management tools</li>
+                                    <li>• Speculative positioning</li>
+                                    <li>• Arbitrage opportunities</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">💼</span>
+                                    Retail Traders
+                                </h4>
+                                <p class="text-secondary-300 mb-4">Individual investors like you</p>
+                                <ul class="space-y-2 text-secondary-200 text-sm">
+                                    <li>• Income generation (covered calls)</li>
+                                    <li>• Directional market bets</li>
+                                    <li>• Portfolio protection</li>
+                                    <li>• Learning and education</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">🏭</span>
+                                    Corporations
+                                </h4>
+                                <p class="text-secondary-300 mb-4">Companies managing business risk</p>
+                                <ul class="space-y-2 text-secondary-200 text-sm">
+                                    <li>• Commodity price hedging</li>
+                                    <li>• Currency risk management</li>
+                                    <li>• Interest rate protection</li>
+                                    <li>• Strategic business planning</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-primary-900/20 rounded-xl p-6 border border-primary-500/30">
+                            <h3 class="text-xl font-bold text-primary-300 mb-4 flex items-center gap-2">
+                                <span class="text-2xl">💼</span>
+                                Real-World Example: Earnings Play
+                            </h3>
+                            <div class="bg-secondary-800 rounded-lg p-6 border border-secondary-600 mb-6">
+                                <h4 class="text-lg font-bold text-white mb-3">Scenario: Apple Earnings Bet</h4>
+                                <p class="text-secondary-300 mb-4">
+                                    You're bullish on Apple (AAPL) stock before their earnings report.
+                                    Current stock price: $150
+                                </p>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-secondary-700 rounded-lg p-4 border border-secondary-600">
+                                        <h5 class="text-green-300 font-semibold mb-2 flex items-center gap-2">
+                                            <span class="text-lg">📈</span>
+                                            Stock Investment
+                                        </h5>
+                                        <ul class="text-green-100 text-sm space-y-1">
+                                            <li>Buy 100 shares @ $150 = $15,000</li>
+                                            <li>If AAPL → $160: +$1,000 profit</li>
+                                            <li>If AAPL → $140: -$1,000 loss</li>
+                                            <li><strong>Return: ±6.7%</strong></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="bg-secondary-700 rounded-lg p-4 border border-secondary-600">
+                                        <h5 class="text-blue-300 font-semibold mb-2 flex items-center gap-2">
+                                            <span class="text-lg">🎫</span>
+                                            Options Strategy
+                                        </h5>
+                                        <ul class="text-blue-100 text-sm space-y-1">
+                                            <li>Buy 1 call @ $2.50 = $250</li>
+                                            <li>If AAPL → $160: +$950 profit</li>
+                                            <li>If AAPL → $140: -$250 loss</li>
+                                            <li><strong>Return: +380% or -100%</strong></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 p-4 bg-primary-900/30 rounded-lg border border-primary-500/30">
+                                    <h5 class="text-primary-300 font-semibold mb-2">Key Insights:</h5>
+                                    <ul class="text-primary-100 text-sm space-y-1">
+                                        <li>• <strong>Leverage:</strong> Options provide 10x leverage in this example</li>
+                                        <li>• <strong>Risk Control:</strong> Maximum loss is limited to premium paid</li>
+                                        <li>• <strong>Capital Efficiency:</strong> Same market exposure with 1/60th capital</li>
+                                        <li>• <strong>Flexibility:</strong> Can walk away if wrong, keeping remaining capital</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 7: Key Terms Summary -->
+                    <section class="bg-secondary-800 rounded-xl p-8 border border-secondary-700 mb-8">
+                        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">7</span>
+                            Key Terms Summary
+                        </h2>
+                        <div class="prose prose-lg max-w-none text-secondary-300 mb-8">
+                            <p>Before taking the quiz, let's review the most important terms you'll need to know:</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">📋</span>
+                                    Options Contract
+                                </h4>
+                                <p class="text-secondary-300 text-sm">A financial derivative giving the right, but not obligation, to buy or sell an asset at a set price by a certain date.</p>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">📈</span>
+                                    Call Option
+                                </h4>
+                                <p class="text-secondary-300 text-sm">The right to buy the underlying asset at the strike price.</p>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">📉</span>
+                                    Put Option
+                                </h4>
+                                <p class="text-secondary-300 text-sm">The right to sell the underlying asset at the strike price.</p>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">🎯</span>
+                                    Strike Price
+                                </h4>
+                                <p class="text-secondary-300 text-sm">The predetermined price at which you can buy or sell the underlying asset.</p>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">💰</span>
+                                    Premium
+                                </h4>
+                                <p class="text-secondary-300 text-sm">The price you pay to purchase the options contract.</p>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">📅</span>
+                                    Expiration Date
+                                </h4>
+                                <p class="text-secondary-300 text-sm">The date when the options contract expires.</p>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">🏆</span>
+                                    In-The-Money (ITM)
+                                </h4>
+                                <p class="text-secondary-300 text-sm">When the option has intrinsic value (profitable to exercise).</p>
+                            </div>
+
+                            <div class="bg-secondary-700/50 rounded-lg p-6 border border-secondary-600">
+                                <h4 class="text-lg font-bold text-primary-300 mb-3 flex items-center gap-2">
+                                    <span class="text-2xl">❌</span>
+                                    Out-of-The-Money (OTM)
+                                </h4>
+                                <p class="text-secondary-300 text-sm">When the option has no intrinsic value.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-primary-900/20 rounded-xl p-6 border border-primary-500/30">
+                            <h3 class="text-xl font-bold text-primary-300 mb-4 flex items-center gap-2">
+                                <span class="text-2xl">🧠</span>
+                                Quick Review Quiz
+                            </h3>
+                            <p class="text-primary-100 mb-6">Test your understanding before the main assessment:</p>
+
+                            <div class="space-y-4">
+                                <div class="bg-secondary-800 rounded-lg p-4 border border-secondary-600">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-primary-400 font-bold text-lg">Q:</span>
+                                        <div>
+                                            <p class="text-white font-semibold">What's the main advantage of options over stocks?</p>
+                                            <p class="text-primary-200 text-sm italic mt-1">A: Limited risk - you can only lose the premium paid.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-secondary-800 rounded-lg p-4 border border-secondary-600">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-primary-400 font-bold text-lg">Q:</span>
+                                        <div>
+                                            <p class="text-white font-semibold">What does "AAPL 150C" mean?</p>
+                                            <p class="text-primary-200 text-sm italic mt-1">A: Apple call option with $150 strike price.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-secondary-800 rounded-lg p-4 border border-secondary-600">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-primary-400 font-bold text-lg">Q:</span>
+                                        <div>
+                                            <p class="text-white font-semibold">What happens to OTM options at expiration?</p>
+                                            <p class="text-primary-200 text-sm italic mt-1">A: They expire worthless.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 p-4 bg-green-900/20 border border-green-500/30 rounded-lg">
+                                <p class="text-green-200 text-sm">
+                                    <strong class="text-green-300">Ready for the main quiz?</strong> Click the button below to test your knowledge
+                                    with 5 comprehensive questions covering all the concepts from this lesson.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="lg:col-span-1 space-y-6">
+                    <div class="bg-secondary-800 rounded-xl p-6 border border-secondary-700">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <span class="text-2xl">📝</span>
+                            Lesson Progress
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 p-3 bg-primary-600 rounded-lg">
+                                <span class="text-green-400 text-lg">✓</span>
+                                <span class="text-white text-sm">Introduction to Options</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-secondary-700 rounded-lg">
+                                <span class="text-secondary-400 text-lg">○</span>
+                                <span class="text-secondary-300 text-sm">Contract Specifications</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-secondary-700 rounded-lg">
+                                <span class="text-secondary-400 text-lg">○</span>
+                                <span class="text-secondary-300 text-sm">Rights vs. Obligations</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-secondary-700 rounded-lg">
+                                <span class="text-secondary-400 text-lg">○</span>
+                                <span class="text-secondary-300 text-sm">Real-World Applications</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-secondary-800 rounded-xl p-6 border border-secondary-700">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <span class="text-2xl">🔑</span>
+                            Key Terms
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="border-l-2 border-primary-500 pl-3">
+                                <div class="text-white text-sm font-semibold">Options Contract</div>
+                                <div class="text-secondary-400 text-xs">Right to buy/sell an asset at a set price</div>
+                            </div>
+                            <div class="border-l-2 border-primary-500 pl-3">
+                                <div class="text-white text-sm font-semibold">Underlying Asset</div>
+                                <div class="text-secondary-400 text-xs">The security the option is based on</div>
+                            </div>
+                            <div class="border-l-2 border-primary-500 pl-3">
+                                <div class="text-white text-sm font-semibold">Strike Price</div>
+                                <div class="text-secondary-400 text-xs">Price to buy/sell the underlying asset</div>
+                            </div>
+                            <div class="border-l-2 border-primary-500 pl-3">
+                                <div class="text-white text-sm font-semibold">Premium</div>
+                                <div class="text-secondary-400 text-xs">Cost to purchase the options contract</div>
+                            </div>
+                            <div class="border-l-2 border-primary-500 pl-3">
+                                <div class="text-white text-sm font-semibold">Expiration</div>
+                                <div class="text-secondary-400 text-xs">Date when the option expires</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-secondary-800 rounded-xl p-6 border border-secondary-700">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <span class="text-2xl">🎯</span>
+                            Quick Actions
+                        </h3>
+                        <div class="space-y-3">
+                            <button class="w-full bg-secondary-700 hover:bg-secondary-600 text-white py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2" onclick="openGlossary()">
+                                <span>📖</span>
+                                <span class="text-sm">View Full Glossary</span>
+                            </button>
+                            <button class="w-full bg-secondary-700 hover:bg-secondary-600 text-white py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2" onclick="openCalculator()">
+                                <span>🧮</span>
+                                <span class="text-sm">Try Calculator</span>
+                            </button>
+                            <button class="w-full bg-secondary-700 hover:bg-secondary-600 text-white py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2" onclick="bookmarkLesson()">
+                                <span>🔖</span>
+                                <span class="text-sm">Bookmark Lesson</span>
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Interactive Section -->
+    <section id="interactive" class="py-16 bg-secondary-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Interactive Learning</h2>
+                <p class="text-xl text-secondary-300">Practice what you've learned with these interactive exercises</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-secondary-700 rounded-xl p-6 border border-secondary-600 hover:bg-secondary-600 transition-colors duration-200">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">🧮</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Options Contract Builder</h3>
+                        <p class="text-secondary-400 text-sm mb-4">Build your own options contract and see how it works</p>
+                        <button class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors duration-200" onclick="openContractBuilder()">Build Contract</button>
+                    </div>
+                </div>
+
+                <div class="bg-secondary-700 rounded-xl p-6 border border-secondary-600 hover:bg-secondary-600 transition-colors duration-200">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">📊</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Options Visualizer</h3>
+                        <p class="text-secondary-400 text-sm mb-4">Visualize how options behave in different scenarios</p>
+                        <button class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors duration-200" onclick="openVisualizer()">View Visualization</button>
+                    </div>
+                </div>
+
+                <div class="bg-secondary-700 rounded-xl p-6 border border-secondary-600 hover:bg-secondary-600 transition-colors duration-200">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">💡</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Concept Checker</h3>
+                        <p class="text-secondary-400 text-sm mb-4">Test your understanding of key concepts</p>
+                        <button class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors duration-200" onclick="openConceptChecker()">Check Concepts</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="py-16 bg-secondary-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Lesson Quiz</h2>
+                    <p class="text-xl text-secondary-300">Test your understanding of "What Are Options?"</p>
+                    <div class="bg-primary-900/30 border border-primary-500/30 rounded-lg p-4 mt-4">
+                        <p class="text-primary-200 text-sm">
+                            <strong>Passing Score:</strong> 80% (4 out of 5 correct answers) •
+                            <strong>Time:</strong> No time limit •
+                            <strong>Attempts:</strong> Unlimited
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-secondary-800 rounded-xl p-8 border border-secondary-700">
+                    <!-- Quiz Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                        <div class="flex items-center gap-4">
+                            <span class="text-secondary-300">Question</span>
+                            <span class="bg-primary-600 text-white px-3 py-1 rounded-full text-sm font-bold" id="current-question">1</span>
+                            <span class="text-secondary-400">of</span>
+                            <span class="text-white font-bold" id="total-questions">5</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-secondary-300 text-sm">Progress</span>
+                            <div class="w-32 h-2 bg-secondary-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary-600 rounded-full transition-all duration-300" id="quiz-progress" style="width: 20%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Content -->
+                    <div id="quiz-content" class="mb-8 min-h-[300px]">
+                        <!-- Quiz questions will be loaded here by JavaScript -->
+                        <div class="text-center text-secondary-400 py-12" id="quiz-loading">
+                            <div class="text-4xl mb-4">🧠</div>
+                            <p>Loading quiz questions...</p>
+                            <div class="mt-4">
+                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
+                            </div>
+                        </div>
+                        <div class="text-center text-secondary-400 py-12 hidden" id="quiz-error">
+                            <div class="text-4xl mb-4">⚠️</div>
+                            <p class="mb-4">Quiz failed to load. Please refresh the page or try again.</p>
+                            <button onclick="window.location.reload()" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">
+                                Refresh Page
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Navigation -->
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <button class="bg-secondary-700 hover:bg-secondary-600 text-white px-6 py-2 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" id="prev-question" style="display: none;">
+                            <span class="flex items-center gap-2">
+                                <span>←</span>
+                                <span>Previous</span>
+                            </span>
+                        </button>
+
+                        <div class="flex gap-3">
+                            <button class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" id="next-question">
+                                <span class="flex items-center gap-2">
+                                    <span>Next</span>
+                                    <span>→</span>
+                                </span>
+                            </button>
+                            <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors duration-200" id="finish-quiz" style="display: none;">
+                                <span class="flex items-center gap-2">
+                                    <span>🎯</span>
+                                    <span>Finish Quiz</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Results -->
+                    <div id="quiz-results" class="mt-8 text-center" style="display: none;">
+                        <div class="bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl p-8 mb-6">
+                            <h3 class="text-2xl font-bold text-white mb-4">Quiz Results</h3>
+                            <div class="flex justify-center mb-4">
+                                <div class="relative">
+                                    <div class="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center border-4 border-white/30">
+                                        <div class="text-center">
+                                            <span class="text-3xl font-bold text-white" id="final-score">0</span>
+                                            <span class="text-lg text-primary-200 block">%</span>
+                                        </div>
+                                    </div>
+                                    <div class="absolute -top-2 -right-2">
+                                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center" id="result-icon">
+                                            <span class="text-white text-sm">✓</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-primary-100 text-lg mb-4" id="results-message">Calculating your results...</p>
+                            <div class="bg-white/10 rounded-lg p-4">
+                                <div class="grid grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-primary-200">Correct Answers:</span>
+                                        <span class="text-white font-bold ml-2" id="correct-answers">0</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-primary-200">Total Questions:</span>
+                                        <span class="text-white font-bold ml-2">5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <button class="bg-secondary-700 hover:bg-secondary-600 text-white px-6 py-3 rounded-lg transition-colors duration-200" id="retake-quiz">
+                                <span class="flex items-center gap-2">
+                                    <span>🔄</span>
+                                    <span>Retake Quiz</span>
+                                </span>
+                            </button>
+                            <a href="lesson-2-calls-puts.html" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg transition-colors duration-200 inline-block" id="next-lesson-link" style="display: none;">
+                                <span class="flex items-center gap-2">
+                                    <span>📈</span>
+                                    <span>Next Lesson</span>
+                                </span>
+                            </a>
+                        </div>
+
+                        <!-- Detailed Results -->
+                        <div class="mt-8 bg-secondary-700 rounded-lg p-6" id="detailed-results" style="display: none;">
+                            <h4 class="text-lg font-bold text-white mb-4">Question Review</h4>
+                            <div id="question-review" class="space-y-4">
+                                <!-- Individual question results will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lesson Navigation -->
+    <section class="py-12 bg-secondary-800 border-t border-secondary-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                <a href="index.html" class="flex items-center gap-3 bg-secondary-700 hover:bg-secondary-600 px-6 py-3 rounded-lg transition-colors duration-200">
+                    <span class="text-2xl">📖</span>
+                    <div>
+                        <div class="text-white font-semibold">Module 1 Overview</div>
+                        <div class="text-secondary-400 text-sm">Back to module</div>
+                    </div>
+                </a>
+
+                <div class="flex items-center gap-3 bg-primary-600 px-6 py-3 rounded-lg">
+                    <span class="text-2xl">📚</span>
+                    <div>
+                        <div class="text-white font-semibold">What Are Options?</div>
+                        <div class="text-primary-200 text-sm">Current lesson</div>
+                    </div>
+                </div>
+
+                <a href="lesson-2-calls-puts.html" class="flex items-center gap-3 bg-secondary-700 hover:bg-secondary-600 px-6 py-3 rounded-lg transition-colors duration-200">
+                    <span class="text-2xl">📈</span>
+                    <div>
+                        <div class="text-white font-semibold">Call and Put Options</div>
+                        <div class="text-secondary-400 text-sm">Next lesson</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-900 border-t border-secondary-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-2">Lesson 1: What Are Options?</h3>
+                    <p class="text-secondary-300 text-sm">Understanding the fundamentals of options contracts</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm">Module 1 Overview</a></li>
+                        <li><a href="#content" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm">Lesson Content</a></li>
+                        <li><a href="#interactive" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm">Interactive Tools</a></li>
+                        <li><a href="#quiz" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm">Lesson Quiz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-secondary-700 pt-8 text-center">
+                <p class="text-secondary-400 text-sm mb-2">&copy; 2025 Options Trading Trainer. Educational purposes only.</p>
+                <p class="text-secondary-400 text-sm"><strong class="text-red-400">Risk Warning:</strong> Options trading involves substantial risk of loss.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../script.js"></script>
+    <script src="lesson1.js"></script>
+    <script>
+        // Quiz loading status management
+        function showQuizLoading() {
+            const loadingDiv = document.getElementById('quiz-loading');
+            const errorDiv = document.getElementById('quiz-error');
+            if (loadingDiv) loadingDiv.style.display = 'block';
+            if (errorDiv) errorDiv.style.display = 'none';
+        }
+
+        function hideQuizLoading() {
+            const loadingDiv = document.getElementById('quiz-loading');
+            if (loadingDiv) loadingDiv.style.display = 'none';
+        }
+
+        function showQuizError() {
+            const loadingDiv = document.getElementById('quiz-loading');
+            const errorDiv = document.getElementById('quiz-error');
+            if (loadingDiv) loadingDiv.style.display = 'none';
+            if (errorDiv) errorDiv.style.display = 'block';
+        }
+
+        // Initialize quiz loading status
+        showQuizLoading();
+
+        // Check if quiz is loaded after a delay
+        setTimeout(() => {
+            if (!window.lesson1Instance) {
+                console.log('Quiz failed to load automatically, showing error');
+                showQuizError();
+            } else {
+                console.log('Quiz loaded successfully');
+                hideQuizLoading();
+            }
+        }, 3000);
+
+        // Also check immediately if quiz is already loaded
+        if (window.lesson1Instance) {
+            console.log('Quiz already loaded, hiding loading state');
+            hideQuizLoading();
+        }
+
+        // Manual quiz initialization fallback
+        window.initializeLesson1Quiz = function() {
+            console.log('Manual quiz initialization triggered');
+            showQuizLoading();
+
+            if (!window.lesson1Instance) {
+                try {
+                    window.lesson1Instance = new Lesson1WhatAreOptions();
+                    console.log('Manual initialization successful');
+                    hideQuizLoading();
+                } catch (error) {
+                    console.error('Manual initialization failed:', error);
+                    showQuizError();
+                }
+            } else {
+                console.log('Instance already exists');
+                hideQuizLoading();
+            }
+        };
+    </script>
+</body>
+</html>

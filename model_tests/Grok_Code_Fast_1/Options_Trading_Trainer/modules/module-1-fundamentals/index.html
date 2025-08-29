@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Options Trading Fundamentals - Options Trading Trainer</title>
+    <meta name="description" content="Learn the basics of options trading including calls, puts, key terminology, and fundamental concepts.">
+    <meta name="keywords" content="options trading basics, calls puts, options terminology, fundamentals">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a'
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out',
+                        'slide-in-right': 'slideInRight 0.3s ease-out'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideInRight: {
+                            '0%': { transform: 'translateX(100%)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-secondary-900 shadow-lg border-b border-secondary-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex flex-col">
+                    <a href="../../index.html" class="text-2xl font-bold text-white hover:text-primary-400 transition-colors duration-200">
+                        📈 Options Trading Trainer
+                    </a>
+                    <p class="text-secondary-400 text-sm">Module 1: Fundamentals</p>
+                </div>
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-8">
+                        <li><a href="../../index.html" class="text-secondary-300 hover:text-primary-400 transition-colors duration-200 relative">Home</a></li>
+                        <li><a href="#overview" class="text-secondary-300 hover:text-primary-400 transition-colors duration-200 relative">Overview</a></li>
+                        <li><a href="#lessons" class="text-secondary-300 hover:text-primary-400 transition-colors duration-200 relative">Lessons</a></li>
+                        <li><a href="#tools" class="text-secondary-300 hover:text-primary-400 transition-colors duration-200 relative">Tools</a></li>
+                        <li><a href="#assessment" class="text-secondary-300 hover:text-primary-400 transition-colors duration-200 relative">Assessment</a></li>
+                    </ul>
+                </nav>
+                <div class="md:hidden mobile-menu-toggle flex flex-col cursor-pointer">
+                    <span class="w-6 h-0.5 bg-white mb-1 transition-all duration-300"></span>
+                    <span class="w-6 h-0.5 bg-white mb-1 transition-all duration-300"></span>
+                    <span class="w-6 h-0.5 bg-white transition-all duration-300"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Module Hero -->
+    <section id="overview" class="pt-32 pb-20 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center justify-center mb-8">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 border border-white/30">
+                        <span class="text-2xl font-bold text-yellow-400">1</span>
+                        <span class="ml-3 text-white font-semibold">Beginner</span>
+                    </div>
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-bold text-center mb-4">Options Trading Fundamentals</h2>
+                <p class="text-xl text-primary-100 text-center mb-8">Weeks 1-2 • 6-8 hours total</p>
+                <p class="text-lg text-primary-100 text-center mb-12 leading-relaxed">
+                    Master the foundational concepts of options trading. Learn what options are, how they work,
+                    and understand the key terminology that forms the basis of all options strategies.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <h3 class="text-xl font-bold text-white mb-4">Learning Objectives</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <span class="text-green-400 text-lg">✅</span>
+                                <span class="text-primary-100">Understand what options contracts are and how they work</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-green-400 text-lg">✅</span>
+                                <span class="text-primary-100">Differentiate between call and put options</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-green-400 text-lg">✅</span>
+                                <span class="text-primary-100">Master key options terminology and concepts</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-green-400 text-lg">✅</span>
+                                <span class="text-primary-100">Calculate basic profit/loss scenarios</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-green-400 text-lg">✅</span>
+                                <span class="text-primary-100">Identify when to use different option types</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <h3 class="text-xl font-bold text-white mb-4">Your Progress</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4 p-4 bg-white/10 rounded-lg">
+                                <span class="text-2xl">📚</span>
+                                <div class="flex-1">
+                                    <h4 class="text-white font-semibold">What Are Options?</h4>
+                                    <div class="w-full bg-secondary-700 rounded-full h-2 mt-2">
+                                        <div class="bg-gradient-to-r from-green-500 to-green-400 h-2 rounded-full transition-all duration-500" id="lesson1-progress" style="width: 0%"></div>
+                                    </div>
+                                    <span class="text-secondary-300 text-sm mt-1 block">0% Complete</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 p-4 bg-white/10 rounded-lg">
+                                <span class="text-2xl">📈</span>
+                                <div class="flex-1">
+                                    <h4 class="text-white font-semibold">Call and Put Options</h4>
+                                    <div class="w-full bg-secondary-700 rounded-full h-2 mt-2">
+                                        <div class="bg-gradient-to-r from-green-500 to-green-400 h-2 rounded-full transition-all duration-500" id="lesson2-progress" style="width: 0%"></div>
+                                    </div>
+                                    <span class="text-secondary-300 text-sm mt-1 block">0% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lessons Section -->
+    <section id="lessons" class="py-20 bg-secondary-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Module Lessons</h2>
+                <p class="text-xl text-secondary-300 max-w-3xl mx-auto">Follow the structured learning path for this module</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                <!-- Lesson 1 -->
+                <div class="bg-secondary-800 rounded-xl p-6 border border-secondary-700 hover:border-primary-500 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl" data-lesson="1">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
+                            <div>
+                                <div class="text-secondary-400 text-sm">3-4 hours</div>
+                                <div class="inline-block px-2 py-1 bg-blue-500 text-white text-xs font-semibold rounded-full">Foundational</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">What Are Options?</h3>
+                    <p class="text-secondary-300 mb-4">Learn the fundamental concept of options contracts and how they differ from stocks.</p>
+                    <div class="mb-6">
+                        <h4 class="text-white font-semibold mb-2">Topics Covered:</h4>
+                        <ul class="text-secondary-400 text-sm space-y-1">
+                            <li>• Definition of options contracts</li>
+                            <li>• Rights vs. obligations</li>
+                            <li>• Underlying assets</li>
+                            <li>• Contract specifications</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="lesson-1-what-are-options.html" class="inline-flex items-center justify-center px-6 py-2 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-500 transition-colors duration-200">
+                            Start Lesson
+                        </a>
+                        <button class="inline-flex items-center justify-center px-6 py-2 bg-transparent border border-primary-500 text-primary-400 font-semibold rounded-lg hover:bg-primary-500 hover:text-white transition-colors duration-200 mark-complete" data-lesson="1">
+                            Mark Complete
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lesson 2 -->
+                <div class="bg-secondary-800 rounded-xl p-6 border border-secondary-700 hover:border-primary-500 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl" data-lesson="2">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                            <div>
+                                <div class="text-secondary-400 text-sm">3-4 hours</div>
+                                <div class="inline-block px-2 py-1 bg-green-500 text-white text-xs font-semibold rounded-full">Practical</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Call and Put Options</h3>
+                    <p class="text-secondary-300 mb-4">Master the two main types of options and understand their profit/loss potential.</p>
+                    <div class="mb-6">
+                        <h4 class="text-white font-semibold mb-2">Topics Covered:</h4>
+                        <ul class="text-secondary-400 text-sm space-y-1">
+                            <li>• Call options mechanics</li>
+                            <li>• Put options mechanics</li>
+                            <li>• Profit/loss calculations</li>
+                            <li>• Breakeven analysis</li>
+                            <li>• Strategy selection guide</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="lesson-2-calls-puts.html" class="inline-flex items-center justify-center px-6 py-2 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-500 transition-colors duration-200">
+                            Start Lesson
+                        </a>
+                        <button class="inline-flex items-center justify-center px-6 py-2 bg-transparent border border-primary-500 text-primary-400 font-semibold rounded-lg hover:bg-primary-500 hover:text-white transition-colors duration-200 mark-complete" data-lesson="2">
+                            Mark Complete
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module Completion -->
+            <div class="bg-secondary-800 rounded-xl p-8 border border-secondary-700">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-white mb-2">🎉 Module Completion</h3>
+                    <p class="text-secondary-300">Complete both lessons and pass the assessment to finish Module 1.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="flex items-center gap-3 p-4 bg-secondary-700 rounded-lg" id="req-lesson1">
+                        <span class="text-2xl">📚</span>
+                        <div class="flex-1 text-left">
+                            <div class="text-white font-medium">Complete "What Are Options?"</div>
+                        </div>
+                        <span class="text-red-400 font-bold" id="req1-status">❌ Incomplete</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 bg-secondary-700 rounded-lg" id="req-lesson2">
+                        <span class="text-2xl">📈</span>
+                        <div class="flex-1 text-left">
+                            <div class="text-white font-medium">Complete "Call and Put Options"</div>
+                        </div>
+                        <span class="text-red-400 font-bold" id="req2-status">❌ Incomplete</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 bg-secondary-700 rounded-lg" id="req-assessment">
+                        <span class="text-2xl">✅</span>
+                        <div class="flex-1 text-left">
+                            <div class="text-white font-medium">Pass Module Assessment</div>
+                        </div>
+                        <span class="text-red-400 font-bold" id="req-assessment-status">❌ Incomplete</span>
+                    </div>
+                </div>
+                <div class="text-center space-y-4">
+                    <a href="#assessment" class="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-500 transition-colors duration-200" id="take-assessment-btn" style="display: none;">
+                        Take Assessment
+                    </a>
+                    <div class="bg-green-600 rounded-lg p-6" id="completion-message" style="display: none;">
+                        <h4 class="text-white text-xl font-bold mb-2">🎊 Congratulations!</h4>
+                        <p class="text-green-100 mb-4">You've completed Module 1!</p>
+                        <a href="../module-2-pricing-greeks/index.html" class="inline-flex items-center justify-center px-6 py-3 bg-white text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-colors duration-200">
+                            Continue to Module 2
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Tools Section -->
+    <section id="tools" class="py-20 bg-secondary-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Interactive Learning Tools</h2>
+                <p class="text-xl text-secondary-300 max-w-3xl mx-auto">Practice concepts with hands-on calculators and visualizations</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-secondary-700 rounded-xl p-6 border border-secondary-600 hover:border-primary-500 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-3">🧮</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Basic P/L Calculator</h3>
+                        <p class="text-secondary-300 text-sm">Calculate profit and loss for simple options positions</p>
+                    </div>
+                    <button class="w-full inline-flex items-center justify-center px-4 py-2 bg-transparent border border-primary-500 text-primary-400 font-semibold rounded-lg hover:bg-primary-500 hover:text-white transition-colors duration-200" onclick="openBasicCalculator()">
+                        Try Calculator
+                    </button>
+                </div>
+
+                <div class="bg-secondary-700 rounded-xl p-6 border border-secondary-600 hover:border-primary-500 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-3">📊</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Options Visualizer</h3>
+                        <p class="text-secondary-300 text-sm">Visualize how options work with interactive diagrams</p>
+                    </div>
+                    <button class="w-full inline-flex items-center justify-center px-4 py-2 bg-transparent border border-primary-500 text-primary-400 font-semibold rounded-lg hover:bg-primary-500 hover:text-white transition-colors duration-200" onclick="openOptionsVisualizer()">
+                        View Diagrams
+                    </button>
+                </div>
+
+                <div class="bg-secondary-700 rounded-xl p-6 border border-secondary-600 hover:border-primary-500 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-3">📝</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Terminology Quiz</h3>
+                        <p class="text-secondary-300 text-sm">Test your knowledge of options terminology</p>
+                    </div>
+                    <button class="w-full inline-flex items-center justify-center px-4 py-2 bg-transparent border border-primary-500 text-primary-400 font-semibold rounded-lg hover:bg-primary-500 hover:text-white transition-colors duration-200" onclick="openTerminologyQuiz()">
+                        Take Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessment Section -->
+    <section id="assessment" class="py-20 bg-secondary-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Module 1 Assessment</h2>
+                    <p class="text-xl text-secondary-300">Test your understanding of options trading fundamentals</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-secondary-800 rounded-xl p-6 border border-secondary-700">
+                        <h3 class="text-xl font-bold text-white mb-4">Assessment Overview</h3>
+                        <ul class="space-y-3 text-secondary-300">
+                            <li class="flex items-center gap-3">
+                                <span class="text-primary-400">📝</span>
+                                <span><strong>Questions:</strong> 15 multiple-choice questions</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-primary-400">⏱️</span>
+                                <span><strong>Time Limit:</strong> 20 minutes</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-primary-400">🎯</span>
+                                <span><strong>Passing Score:</strong> 80% (12/15 correct)</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-primary-400">🔄</span>
+                                <span><strong>Attempts:</strong> Unlimited</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-secondary-800 rounded-xl p-6 border border-secondary-700">
+                        <h3 class="text-xl font-bold text-white mb-4">Prerequisites</h3>
+                        <p class="text-secondary-300 mb-4">You must complete both lessons before taking this assessment.</p>
+                        <div class="p-4 bg-secondary-700 rounded-lg">
+                            <span class="text-secondary-400" id="assessment-ready-status">Complete lessons to unlock assessment</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center space-y-4">
+                    <button class="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" id="start-assessment-btn" disabled>
+                        Start Assessment
+                    </button>
+                    <p class="text-secondary-400 text-sm max-w-2xl mx-auto">
+                        <strong>Note:</strong> This assessment helps track your progress and ensures you understand
+                        the fundamental concepts before moving to more advanced topics.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Resources -->
+    <section class="py-20 bg-secondary-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Additional Resources</h2>
+                <p class="text-xl text-secondary-300 max-w-3xl mx-auto">Expand your knowledge with these recommended materials</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-secondary-700 rounded-xl p-6 border border-secondary-600">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <span class="text-2xl">📖</span>
+                        Key Concepts
+                    </h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-primary-400 hover:text-primary-300 transition-colors duration-200 block" onclick="showConcept('options-definition')">Options Contract Definition</a></li>
+                        <li><a href="#" class="text-primary-400 hover:text-primary-300 transition-colors duration-200 block" onclick="showConcept('call-put-difference')">Call vs Put Options</a></li>
+                        <li><a href="#" class="text-primary-400 hover:text-primary-300 transition-colors duration-200 block" onclick="showConcept('profit-loss-basics')">Basic Profit/Loss Calculation</a></li>
+                        <li><a href="#" class="text-primary-400 hover:text-primary-300 transition-colors duration-200 block" onclick="showConcept('breakeven-analysis')">Breakeven Analysis</a></li>
+                    </ul>
+                </div>
+
+                <div class="bg-secondary-700 rounded-xl p-6 border border-secondary-600">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <span class="text-2xl">🔗</span>
+                        External Resources
+                    </h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://www.investopedia.com/terms/o/option.asp" class="text-primary-400 hover:text-primary-300 transition-colors duration-200 block" target="_blank">Investopedia: Options</a></li>
+                        <li><a href="https://www.optionsindustry.org/education/" class="text-primary-400 hover:text-primary-300 transition-colors duration-200 block" target="_blank">Options Industry Council</a></li>
+                        <li><a href="https://www.cboe.com/learncenter/" class="text-primary-400 hover:text-primary-300 transition-colors duration-200 block" target="_blank">CBOE Learn Center</a></li>
+                    </ul>
+                </div>
+
+                <div class="bg-secondary-700 rounded-xl p-6 border border-secondary-600">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <span class="text-2xl">📚</span>
+                        Recommended Reading
+                    </h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-primary-400 hover:text-primary-300 transition-colors duration-200 block" onclick="showBook('options-for-dummies')">"Options Trading for Dummies" - Chapter 1</a></li>
+                        <li><a href="#" class="text-primary-400 hover:text-primary-300 transition-colors duration-200 block" onclick="showBook('getting-started-in-options')">"Getting Started in Options" - Chapter 2</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Footer -->
+    <section class="py-12 bg-secondary-900 border-t border-secondary-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                <a href="../../index.html" class="flex items-center gap-3 px-6 py-3 bg-secondary-800 rounded-lg border border-secondary-700 hover:border-primary-500 transition-colors duration-200">
+                    <span class="text-2xl">🏠</span>
+                    <span class="text-white font-medium">Main Hub</span>
+                </a>
+
+                <div class="flex items-center gap-3 px-6 py-3 bg-primary-600 rounded-lg">
+                    <span class="text-2xl">📖</span>
+                    <span class="text-white font-medium">Module 1: Fundamentals</span>
+                </div>
+
+                <a href="../module-2-pricing-greeks/index.html" class="flex items-center gap-3 px-6 py-3 bg-secondary-800 rounded-lg border border-secondary-700 hover:border-primary-500 transition-colors duration-200" id="next-module-nav">
+                    <span class="text-2xl">📈</span>
+                    <span class="text-white font-medium">Module 2: Pricing & Greeks</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-900 border-t border-secondary-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-white">Module 1: Fundamentals</h3>
+                    <p class="text-secondary-300 text-sm">Building your foundation in options trading</p>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-sm font-semibold text-white uppercase tracking-wider">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="../../index.html" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm">Main Hub</a></li>
+                        <li><a href="#overview" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm">Module Overview</a></li>
+                        <li><a href="#lessons" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm">Lessons</a></li>
+                        <li><a href="#tools" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm">Tools</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-sm font-semibold text-white uppercase tracking-wider">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="../../learning_journey.md" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm" target="_blank">Learning Journey</a></li>
+                        <li><a href="mailto:support@optionstrainer.com" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm">Contact Support</a></li>
+                        <li><a href="#" class="text-secondary-400 hover:text-primary-400 transition-colors duration-200 text-sm" onclick="resetProgress()">Reset Progress</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-secondary-700 pt-8 text-center">
+                <p class="text-secondary-400 text-sm mb-2">&copy; 2025 Options Trading Trainer. Educational purposes only.</p>
+                <p class="text-secondary-400 text-sm"><strong class="text-red-400">Risk Warning:</strong> Options trading involves substantial risk of loss.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../script.js"></script>
+    <script src="module1.js"></script>
+</body>
+</html>

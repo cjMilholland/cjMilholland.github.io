@@ -186,7 +186,11 @@ It was trained on the Pascal dataset and returns a list of objects it thinks are
 The success rate of this model isn't great but I think it might get better with something like moving video where it has multiple attempts at guessing. We could figure out average list and I would assume that would increase the likely hood of proper success.
 
 __Segmentation__
-Segmentation is much like Multi-Label Classification but we are attempting to figure out the labels for each pixel in the  
+Segmentation is much like Multi-Label Classification but we are attempting to figure out the labels for each pixel in the image instead of a general set of labels for the whole image. This allows us to attempt to identify the location of each object inside of the image. 
+
+In this section we will be using the CAMVID_TINY dataset.
+
+At this point we have come to the end of the Computer Vision Into tutorial. I am looking forward to knocking out the next chapter in the book followed up with the next chapter in the Online Course.
 
 ### Fast AI Practical Deep Learning Course - [https://course.fast.ai](https://course.fast.ai)
 #### Online Course
@@ -326,7 +330,13 @@ They also recommend if you are planning on leveraging a third party to develop y
 
 
 
- - [Chapter 2, Production](https://colab.research.google.com/github/fastai/fastbook/blob/master/02_production.ipynb) 
+ - [Chapter 2, Production](https://colab.research.google.com/github/fastai/fastbook/blob/master/02_production.ipynb)
+
+Reading over the intro paragraph with this it sounds like this chapter is going to be focused on showing one or possibly many different ways we can deploy an AI model for use inside of a production application. In this case the application will be a Bear Classification Computer Version Application.
+
+At some point I should look into https://rapids.ai
+
+
  - [Chapter 3, Ethics](https://colab.research.google.com/github/fastai/fastbook/blob/master/03_ethics.ipynb) 
  - [Chapter 4, MNIST Basics](https://colab.research.google.com/github/fastai/fastbook/blob/master/04_mnist_basics.ipynb) 
  - [Chapter 5, Pet Breeds](https://colab.research.google.com/github/fastai/fastbook/blob/master/05_pet_breeds.ipynb) 
