@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glowing Ball Platformer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas" width="800" height="600"></canvas>
+        <div id="ui">
+            <div id="health">Health: <span id="health-value">100</span></div>
+            <div id="level">Level: <span id="level-value">1</span></div>
+            <div id="score">Score: <span id="score-value">0</span></div>
+        </div>
+        <div id="game-over" style="display: none;">
+            <h2>Game Over!</h2>
+            <p>Final Score: <span id="final-score">0</span></p>
+            <button id="restart-btn">Restart Game</button>
+        </div>
+        <div id="level-complete" style="display: none;">
+            <h2>Level Complete!</h2>
+            <p>Score: <span id="level-score">0</span></p>
+            <button id="next-level-btn">Next Level</button>
+        </div>
+        <div id="instructions">
+            <h3>Controls:</h3>
+            <p>Arrow Keys: Move</p>
+            <p>Space: Jump</p>
+            <p>Z: Shoot</p>
+            <p>Click to start playing!</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    background: #0f0f23;
+}
+
+#game-canvas {
+    display: block;
+    background: linear-gradient(to bottom, #87CEEB, #98FB98);
+    border: 3px solid #00ffff;
+    border-radius: 10px;
+}
+
+#ui {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ffff;
+}
+
+#ui div {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #00ffff;
+}
+
+#game-over, #level-complete {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #ff6b6b;
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+#level-complete {
+    border-color: #4ecdc4;
+    box-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
+}
+
+#game-over h2 {
+    color: #ff6b6b;
+    margin-bottom: 15px;
+}
+
+#level-complete h2 {
+    color: #4ecdc4;
+    margin-bottom: 15px;
+}
+
+button {
+    background: linear-gradient(45deg, #00ffff, #0080ff);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+}
+
+#instructions {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #00ffff;
+    font-size: 14px;
+    max-width: 200px;
+}
+
+#instructions h3 {
+    color: #00ffff;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#instructions p {
+    margin: 5px 0;
+    color: #cccccc;
+}
+
+/* Glow effects for game elements */
+.glow-blue {
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+}
+
+.glow-red {
+    box-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b, 0 0 30px #ff6b6b;
+}
+
+.glow-green {
+    box-shadow: 0 0 10px #4ecdc4, 0 0 20px #4ecdc4, 0 0 30px #4ecdc4;
+}
+
+.glow-yellow {
+    box-shadow: 0 0 10px #ffd93d, 0 0 20px #ffd93d, 0 0 30px #ffd93d;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+    #game-canvas {
+        width: 100%;
+        height: auto;
+        max-width: 800px;
+    }
+
+    #ui {
+        font-size: 14px;
+        gap: 10px;
+    }
+
+    #instructions {
+        font-size: 12px;
+        max-width: 150px;
+    }
+}
