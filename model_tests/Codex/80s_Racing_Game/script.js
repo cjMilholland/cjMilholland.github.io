@@ -1,20 +1,18 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-const road = { left: 50, width: 300 };
-const player = { x: canvas.width / 2 - 20, y: canvas.height - 100, width: 40, height: 80, speed: 5 };
+const centerX = canvas.width / 2;
+const road = {
+  horizon: canvas.height * 0.2,
+  topWidth: canvas.width * 0.1,
+  bottomWidth: canvas.width * 0.9
+};
+
+let roadOffset = 0;
+let playerPos = 0; // -1 to 1
 let keys = { left: false, right: false };
-let lines = [];
 let cars = [];
 let frame = 0;
-
-function createLine(y) {
-  return { x: canvas.width / 2 - 5, y, width: 10, height: 40 };
-}
-
-for (let i = 0; i < 20; i++) {
-  lines.push(createLine(i * 60));
-}
 
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') keys.left = true;
@@ -26,77 +24,136 @@ document.addEventListener('keyup', e => {
   if (e.key === 'ArrowRight') keys.right = false;
 });
 
+
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
+function roadWidthAt(t) {
+  return lerp(road.topWidth, road.bottomWidth, t);
+}
+
+function spawnCar() {
+  const offsets = [-0.6, 0, 0.6];
+  cars.push({ z: 1, offset: offsets[Math.floor(Math.random() * offsets.length)] });
+}
+
+function getPlayerRect() {
+  const roadW = roadWidthAt(1);
+  const carW = roadW * 0.15;
+  const carH = carW * 1.6;
+  const maxOffset = roadW / 2 - carW / 2;
+  const x = centerX - carW / 2 + playerPos * maxOffset;
+  const y = canvas.height - carH - 20;
+  return { x, y, w: carW, h: carH };
+}
+
+function projectCar(car) {
+  const p = 1 - car.z;
+  const roadW = roadWidthAt(p);
+  const carW = roadW * 0.15;
+  const carH = carW * 1.6;
+  const maxOffset = roadW / 2 - carW / 2;
+  const x = centerX - carW / 2 + car.offset * maxOffset;
+  const y = lerp(road.horizon, canvas.height - carH - 20, p);
+  return { x, y, w: carW, h: carH };
+}
+
+function drawCar(rect, color) {
+  const { x, y, w, h } = rect;
+  ctx.save();
+  ctx.translate(x, y);
+
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(w * 0.1, 0);
+  ctx.lineTo(w * 0.9, 0);
+  ctx.lineTo(w, h * 0.6);
+  ctx.lineTo(0, h * 0.6);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = '#ccc';
+  ctx.fillRect(w * 0.2, h * 0.1, w * 0.6, h * 0.3);
+
+  ctx.fillStyle = '#222';
+  ctx.fillRect(-w * 0.05, h * 0.6, w * 0.2, h * 0.4);
+  ctx.fillRect(w * 0.85, h * 0.6, w * 0.2, h * 0.4);
+
+  ctx.restore();
+}
+
+function drawBackground() {
+  const sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  sky.addColorStop(0, '#4ec0ff');
+  sky.addColorStop(1, '#105');
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function drawRoad() {
+  ctx.fillStyle = '#070';
+  ctx.fillRect(0, road.horizon, canvas.width, canvas.height - road.horizon);
+
+  ctx.fillStyle = '#555';
+  ctx.beginPath();
+  ctx.moveTo(centerX - road.topWidth / 2, road.horizon);
+  ctx.lineTo(centerX + road.topWidth / 2, road.horizon);
+  ctx.lineTo(centerX + road.bottomWidth / 2, canvas.height);
+  ctx.lineTo(centerX - road.bottomWidth / 2, canvas.height);
+  ctx.closePath();
+  ctx.fill();
+
+  const segments = 30;
+  for (let i = 0; i < segments; i++) {
+    const p = (i / segments + roadOffset) % 1;
+    const y = lerp(road.horizon, canvas.height, p);
+    const w = roadWidthAt(p) * 0.05;
+    const h = lerp(2, 20, p);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(centerX - w / 2, y, w, h);
+  }
+}
+
+function draw(playerRect) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBackground();
+  drawRoad();
+  drawCar(playerRect, '#0f0');
+  cars.forEach(car => drawCar(car.screen, '#f00'));
+}
+
 function update() {
   frame++;
+  roadOffset = (roadOffset + 0.02) % 1;
 
-  // Move lane lines
-  lines.forEach(line => {
-    line.y += 10;
-    if (line.y > canvas.height) {
-      line.y = -line.height;
-    }
-  });
+  if (keys.left) playerPos = Math.max(-1, playerPos - 0.05);
+  if (keys.right) playerPos = Math.min(1, playerPos + 0.05);
 
-  // Spawn enemy cars
-  if (frame % 60 === 0) {
-    const lane = Math.floor(Math.random() * 3);
-    cars.push({
-      x: road.left + 20 + lane * 90,
-      y: -100,
-      width: 40,
-      height: 80,
-      speed: 6
-    });
-  }
+  if (frame % 120 === 0) spawnCar();
+
+  const playerRect = getPlayerRect();
 
   cars.forEach(car => {
-    car.y += car.speed;
-  });
-
-  cars = cars.filter(car => car.y < canvas.height + 100);
-
-  // Player movement
-  if (keys.left) player.x -= player.speed;
-  if (keys.right) player.x += player.speed;
-  player.x = Math.max(road.left, Math.min(player.x, road.left + road.width - player.width));
-
-  // Collision detection
-  for (const car of cars) {
+    car.z -= 0.02;
+    if (car.z < 0) car.remove = true;
+    car.screen = projectCar(car);
+    const r = car.screen;
     if (
-      player.x < car.x + car.width &&
-      player.x + player.width > car.x &&
-      player.y < car.y + car.height &&
-      player.y + player.height > car.y
+      r.x < playerRect.x + playerRect.w &&
+      r.x + r.w > playerRect.x &&
+      r.y < playerRect.y + playerRect.h &&
+      r.y + r.h > playerRect.y
     ) {
       alert('Game Over!');
       document.location.reload();
-      return;
     }
-  }
+  });
 
-  draw();
+  cars = cars.filter(c => !c.remove);
+
+  draw(playerRect);
   requestAnimationFrame(update);
-}
-
-function draw() {
-  ctx.fillStyle = '#444';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  // Road
-  ctx.fillStyle = '#111';
-  ctx.fillRect(road.left, 0, road.width, canvas.height);
-
-  // Lane lines
-  ctx.fillStyle = '#fff';
-  lines.forEach(line => ctx.fillRect(line.x, line.y, line.width, line.height));
-
-  // Player
-  ctx.fillStyle = '#0f0';
-  ctx.fillRect(player.x, player.y, player.width, player.height);
-
-  // Enemy cars
-  ctx.fillStyle = '#f00';
-  cars.forEach(car => ctx.fillRect(car.x, car.y, car.width, car.height));
 }
 
 update();
