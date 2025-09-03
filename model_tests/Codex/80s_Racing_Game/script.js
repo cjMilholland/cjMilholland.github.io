@@ -24,6 +24,7 @@ document.addEventListener('keyup', e => {
   if (e.key === 'ArrowRight') keys.right = false;
 });
 
+
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
