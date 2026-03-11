@@ -1,2 +1,17 @@
-theme: minima
 title: CJ Milholland
+description: A blog about tech, AI, and whatever else I'm learning.
+url: "https://cjmilholland.github.io"
+theme: minima
+
+# Build settings
+permalink: /blog/:year/:month/:day/:title/
+show_excerpts: true
+
+# Author info (used by minima theme)
+author:
+  name: CJ Milholland
+
+# Navigation links in header
+header_pages:
+  - about.md
+  - blog.md
